@@ -4,10 +4,9 @@ import com.example.Booking.util.Message;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "role")
 public class Role {
     @Id
-    @Column(name = "id", nullable = false)
+    @GeneratedValue(strategy =GenerationType.IDENTITY)
     private Long id;
     private String roleName;
 
