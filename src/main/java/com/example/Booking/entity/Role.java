@@ -1,9 +1,7 @@
 package com.example.Booking.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import com.example.Booking.util.Message;
+import jakarta.persistence.*;
 
 @Entity
 @Table(name = "role")
@@ -48,5 +46,16 @@ public class Role {
                 "id=" + id +
                 ", roleName='" + roleName + '\'' +
                 '}';
+    }
+
+    @Transient
+    private Message message;
+
+    public Message getMessage ( ) {
+        return message;
+    }
+
+    public void setMessage ( Message message ) {
+        this.message = message;
     }
 }
