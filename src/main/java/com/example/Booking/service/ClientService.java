@@ -1,8 +1,11 @@
 package com.example.Booking.service;
 import com.example.Booking.entity.Client;
+import com.example.Booking.entity.Room;
+import com.example.Booking.entity.RoomStatus;
 import com.example.Booking.entity.Status;
 import com.example.Booking.repository.ClientRepository;
 import com.example.Booking.repository.RoleRepository;
+import com.example.Booking.repository.RoomRepository;
 import com.example.Booking.util.Message;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,6 +20,8 @@ public class ClientService {
     RoleRepository roleRepository;
     @Autowired
     ClientRepository clientRepository;
+    @Autowired
+    private RoomRepository roomRepository;
 
     public List<Client> getAllClient(){return  clientRepository.findAll();}
     public Optional<Client> getClientById(Long id){
@@ -26,6 +31,10 @@ public class ClientService {
         return clientRepository.findClientByEmail(email);
     }
 
+
+    public List<Room> getActiveRooms(){
+        return  roomRepository.findRoomByRoomStatus(RoomStatus.AVAILABLE);
+    }
 
 
     public Client addClient(Client  client){
