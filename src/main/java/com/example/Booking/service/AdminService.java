@@ -1,7 +1,9 @@
 package com.example.Booking.service;
 import com.example.Booking.entity.Admin;
+import com.example.Booking.entity.Hotel;
 import com.example.Booking.entity.Status;
 import com.example.Booking.repository.AdminRepository;
+import com.example.Booking.repository.HotelRepository;
 import com.example.Booking.repository.RoleRepository;
 import com.example.Booking.util.Message;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +18,8 @@ public class AdminService {
 
      @Autowired
      RoleRepository roleRepository;
+    @Autowired
+    private HotelRepository hotelRepository;
 
     public List<Admin> getAllAdmin(){return  adminRepository.findAll();}
     public Optional<Admin> getAdminById(Long id){
@@ -55,5 +59,8 @@ public class AdminService {
         adminRepository.save(admin);
         return admin;
     }
+
+
+
 
 }

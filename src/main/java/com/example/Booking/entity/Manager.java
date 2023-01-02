@@ -1,10 +1,12 @@
 package com.example.Booking.entity;
 import com.example.Booking.util.Message;
 import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
 import jakarta.persistence.Transient;
 
 @Entity
-public class Manger  extends User{
+
+public class Manager extends User{
 
 
 

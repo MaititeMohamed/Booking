@@ -14,6 +14,7 @@ public class User {
     private  String  lastName;
     private  String  email;
     private  String  password;
+    @Enumerated(EnumType.STRING)
     private  Status  status;
     @ManyToOne
     @JoinColumn(name = "role_id")

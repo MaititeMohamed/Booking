@@ -7,36 +7,37 @@ import jakarta.persistence.*;
 @Table(name = "hotel")
 public class Hotel {
     @Id
-    @Column(name = "id", nullable = false)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private  String hotelName;
+    @Enumerated(EnumType.STRING)
     private  Status  status;
     private  String address;
     @ManyToOne
-    @JoinColumn(name = "manger_id")
-    private  Manger manger;
+    @JoinColumn(name = "manager_id")
+    private Manager manager;
     private  String country;
     private  String city;
 
     public Hotel(Long id, String hotelName, Status status,
-                 String address, Manger manger,
+                 String address, Manager manager,
                  String country, String city) {
         this.id = id;
         this.hotelName = hotelName;
         this.status = status;
         this.address = address;
-        this.manger = manger;
+        this.manager = manager;
         this.country = country;
         this.city = city;
     }
 
     public Hotel(String hotelName, Status status,
-                 String address, Manger manger,
+                 String address, Manager manager,
                  String country, String city) {
         this.hotelName = hotelName;
         this.status = status;
         this.address = address;
-        this.manger = manger;
+        this.manager = manager;
         this.country = country;
         this.city = city;
     }
@@ -76,12 +77,12 @@ public class Hotel {
         this.address = address;
     }
 
-    public Manger getManger() {
-        return manger;
+    public Manager getManager() {
+        return manager;
     }
 
-    public void setManger(Manger manger) {
-        this.manger = manger;
+    public void setManger(Manager manager) {
+        this.manager = manager;
     }
 
     public String getCountry() {
@@ -108,7 +109,7 @@ public class Hotel {
                 ", hotelName='" + hotelName + '\'' +
                 ", status=" + status +
                 ", address='" + address + '\'' +
-                ", manger=" + manger +
+                ", manager=" + manager +
                 ", country='" + country + '\'' +
                 ", city='" + city + '\'' +
                 '}';
