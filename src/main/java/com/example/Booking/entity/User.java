@@ -1,15 +1,14 @@
 package com.example.Booking.entity;
-
-
+import com.example.Booking.util.Message;
 import jakarta.persistence.*;
 
 @Entity
 @Table(name = "users")
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@Inheritance(strategy = InheritanceType.JOINED)
+@DiscriminatorColumn(name = "dtype", discriminatorType = DiscriminatorType.STRING)
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false)
     private  Long id;
     private  String firstName;
     private  String  lastName;
@@ -114,5 +113,14 @@ public class User {
                 ", role=" + role +
                 '}';
     }
+    @Transient
+    private Message message;
 
+    public Message getMessage ( ) {
+        return message;
+    }
+
+    public void setMessage ( Message message ) {
+        this.message = message;
+    }
 }

@@ -1,5 +1,6 @@
 package com.example.Booking.entity;
 
+import com.example.Booking.util.Message;
 import jakarta.persistence.*;
 
 @Entity
@@ -111,5 +112,15 @@ public class Hotel {
                 ", country='" + country + '\'' +
                 ", city='" + city + '\'' +
                 '}';
+    }
+    @Transient
+    private Message message;
+
+    public Message getMessage ( ) {
+        return message;
+    }
+
+    public void setMessage ( Message message ) {
+        this.message = message;
     }
 }
