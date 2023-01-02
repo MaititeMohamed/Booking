@@ -5,6 +5,7 @@ import com.example.Booking.entity.*;
 import com.example.Booking.repository.HotelRepository;
 import com.example.Booking.repository.ManagerRepository;
 import com.example.Booking.repository.RoleRepository;
+import com.example.Booking.repository.RoomRepository;
 import com.example.Booking.util.Message;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,6 +24,9 @@ public class ManagerService {
 
     @Autowired
     ManagerRepository managerRepository;
+    @Autowired
+    private RoomRepository roomRepository;
+
     public List<Manager> getAllManger(){return  managerRepository.findAll();}
     public Optional<Manager> getMangerById(Long id){
         return managerRepository.findById(id);
@@ -65,6 +69,10 @@ public class ManagerService {
     public Optional<Hotel> getHotelByHotelName(String hotelName){
         return  hotelRepository.findHotelByHotelName(hotelName);}
 
+    public Optional<Room> findRoomByRoomNumber(Integer roomNumber){
+        return  roomRepository.findRoomByRoomNumber(roomNumber);
+    }
+
     public Hotel addHotel(Hotel hotel){
         Message message = new Message();
         Optional<Hotel> hotelByName=getHotelByHotelName(hotel.getHotelName());
@@ -94,6 +102,27 @@ public class ManagerService {
 
     public Room addRoomToHotel(Room room){
 
-        return room;
+        Message message = new Message();
+        Optional<Room> findRoomNumber=findRoomByRoomNumber(room.getRoomNumber());
+        if(room.getRoomNumber()==null  || room.getNumberBeds()==null
+        ||room.getPrice() == 0 ){
+            message.setState("Error");
+            message.setMessage("Pleas Insert all information");
+            room.setMessage(message);
+            return  room;
+        }
+        if(findRoomNumber.isPresent()){
+            message.setState("Error");
+            message.setMessage("This room is Already exist");
+            room.setMessage(message);
+            return  room;
+        }
+        message.setState("success");
+        message.setMessage("hotel has ben created ");
+        room.setMessage(message);
+        room.setRoomStatus(RoomStatus.AVAILABLE);
+        room.setHotel(hotelRepository.findById(1L).get());
+       Room room1= roomRepository.save(room);
+        return room1;
     }
 }

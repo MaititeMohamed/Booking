@@ -8,7 +8,7 @@ import jakarta.persistence.*;
 public class Room {
 
     @Id
-    @Column(name = "id", nullable = false)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private Integer roomNumber;
     private float price;
@@ -16,6 +16,7 @@ public class Room {
     @ManyToOne
     @JoinColumn(name = "hotel_id")
     private  Hotel hotel;
+   // @Enumerated(EnumType.STRING)
     private  RoomStatus roomStatus;
 
     public Room(Long id, Integer roomNumber,
