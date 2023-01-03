@@ -1,15 +1,15 @@
 package com.example.Booking.service;
-import com.example.Booking.entity.Client;
-import com.example.Booking.entity.Room;
-import com.example.Booking.entity.RoomStatus;
-import com.example.Booking.entity.Status;
+import com.example.Booking.entity.*;
 import com.example.Booking.repository.ClientRepository;
+import com.example.Booking.repository.ReservationRepository;
 import com.example.Booking.repository.RoleRepository;
 import com.example.Booking.repository.RoomRepository;
+
 import com.example.Booking.util.Message;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -22,6 +22,8 @@ public class ClientService {
     ClientRepository clientRepository;
     @Autowired
     private RoomRepository roomRepository;
+    @Autowired
+    private ReservationRepository reservationRepository;
 
     public List<Client> getAllClient(){return  clientRepository.findAll();}
     public Optional<Client> getClientById(Long id){
@@ -66,5 +68,15 @@ public class ClientService {
         return client;
     }
 
+
+    public Reservation   clientReservation(Reservation reservation){
+
+        reservation.setStartDate(LocalDate.now());
+        reservation.setClient(clientRepository.findById(3L).get());
+        reservation.setReservationStatus(ReservationStatus.PENDING);
+        reservation.setRoom(roomRepository.findById(1L).get());
+        reservationRepository.save(reservation);
+        return reservation;
+    }
 
 }

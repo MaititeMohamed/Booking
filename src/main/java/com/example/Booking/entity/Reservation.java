@@ -1,6 +1,7 @@
 package com.example.Booking.entity;
 
 import com.example.Booking.util.Message;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
@@ -9,9 +10,10 @@ import java.time.LocalDate;
 @Entity
 public class Reservation {
     @Id
-    @Column(name = "id", nullable = false)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private LocalDate startDate;
+
     private  LocalDate endDate;
     @ManyToOne
     @JoinColumn(name = "client_id")
