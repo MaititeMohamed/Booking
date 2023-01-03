@@ -1,4 +1,4 @@
-package com.example.Booking.controller;
+package com.example.Booking.repository.controller;
 
 
 import org.springframework.web.bind.annotation.RequestMapping;

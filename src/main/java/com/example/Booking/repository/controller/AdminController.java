@@ -1,8 +1,5 @@
-package com.example.Booking.controller;
-import com.example.Booking.entity.Admin;
-import com.example.Booking.entity.Client;
-import com.example.Booking.entity.Hotel;
-import com.example.Booking.entity.Manager;
+package com.example.Booking.repository.controller;
+import com.example.Booking.entity.*;
 import com.example.Booking.service.AdminService;
 import com.example.Booking.service.ClientService;
 import com.example.Booking.service.HotelService;
@@ -71,4 +68,7 @@ public class AdminController {
     public Hotel activeHotel(@PathVariable  Long id){
       return    hotelService.activeHotel(id);
     }
+
+
+
 }
