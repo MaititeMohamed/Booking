@@ -1,4 +1,4 @@
-package com.example.Booking.repository.controller;
+package com.example.Booking.controller;
 
 import com.example.Booking.entity.Hotel;
 import com.example.Booking.entity.Room;
@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping(path = "/Booking/Manager")
+@CrossOrigin("http://localhost:4200")
 public class ManagerController {
 
 

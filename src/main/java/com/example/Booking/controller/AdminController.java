@@ -1,9 +1,7 @@
-package com.example.Booking.repository.controller;
+package com.example.Booking.controller;
 import com.example.Booking.entity.*;
-import com.example.Booking.service.AdminService;
-import com.example.Booking.service.ClientService;
-import com.example.Booking.service.HotelService;
-import com.example.Booking.service.ManagerService;
+import com.example.Booking.repository.RoomRepository;
+import com.example.Booking.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,6 +11,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping(path = "/Booking/Admin")
+@CrossOrigin("http://localhost:4200")
 public class AdminController {
     @Autowired
     AdminService adminService;
@@ -23,9 +22,15 @@ public class AdminController {
     @Autowired
     ManagerService managerService;
 
-
+  @Autowired
+    RoleService roleService;
     @Autowired
     HotelService hotelService;
+    @Autowired
+     RoomRepository roomRepository;
+
+    @Autowired
+    RoomService roomService;
     /*Admin*/
 
     @GetMapping("/getAllAdmin")
@@ -38,8 +43,10 @@ public class AdminController {
     @PostMapping("/addAdmin")
     public Admin addAdmin(@RequestBody Admin admin ){return  adminService.addAdmin(admin);}
     /*Client*/
-
-
+    @DeleteMapping("/deleteClientById/{id}")
+   public Integer deleteClientById(@PathVariable("id") Long id){
+       return clientService.deleteClientById(id);
+   }
     @GetMapping("/getAllClient")
     public List<Client> getAllClient(){return clientService.getAllClient();}
 
@@ -50,11 +57,25 @@ public class AdminController {
     @PostMapping("/addClient")
     public Client addClient(@RequestBody Client client ){return  clientService.addClient(client);}
 
+
+    @PutMapping("/updateClient")
+    public  Client updateClient(@RequestBody Client client){
+        return clientService.updateClient(client);
+    }
     /*Manager*/
 
     @GetMapping("/getAllManger")
     public List<Manager> getAllManger(){return managerService.getAllManger();}
 
+    @DeleteMapping("/deleteManagerById/{id}")
+    public Integer deleteManagerById(@PathVariable("id") Long id){
+        return managerService.deleteManagerById(id);
+    }
+
+    @PutMapping("/updateManager")
+    public  Manager updateManager(@RequestBody Manager manager){
+        return managerService.updateManager(manager);
+    }
 
     @GetMapping("/getMangerById/{id}")
     public Optional<Manager> getMangerById(@PathVariable("id") Long id){ return  managerService.getMangerById(id);}
@@ -69,6 +90,30 @@ public class AdminController {
       return    hotelService.activeHotel(id);
     }
 
+    @DeleteMapping("/deleteHotelById/{id}")
+    public Integer deleteHotelById(@PathVariable("id") Long id){
+        return hotelService.deleteHotelById(id);
+    }
 
+    @PutMapping("/updateHotel")
+    public  Hotel updateManager(@RequestBody Hotel hotel){
+        return managerService.updateHotel(hotel);
+    }
+    @GetMapping("/getAllHotels")
+    public  List<Hotel> getAllHotels(){
+        return hotelService.getAllHotels();
+    }
+    @GetMapping("/getHotelById/{id}")
+    public Optional<Hotel> getHotelById(@PathVariable Long id){
+        return hotelService.getHotelById(id);
+    }
+
+    /*Room*/
+     @GetMapping("/getRoomsByHotelId/{hotel}")
+
+     public  List<Room> getRoomsByHotel(@PathVariable Hotel hotel){
+
+         return  roomService.getRoomsByHotel(hotel);
+     }
 
 }

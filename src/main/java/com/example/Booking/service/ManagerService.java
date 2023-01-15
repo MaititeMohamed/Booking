@@ -7,6 +7,7 @@ import com.example.Booking.repository.ManagerRepository;
 import com.example.Booking.repository.RoleRepository;
 import com.example.Booking.repository.RoomRepository;
 import com.example.Booking.util.Message;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -99,7 +100,35 @@ public class ManagerService {
          return hotel1;
     }
 
+    @Transactional
+    public Hotel updateHotel(Hotel hotel){
+        Message message = new Message();
+        Optional<Hotel> hotelByName=getHotelByHotelName(hotel.getHotelName());
+        Hotel hotelupdate=hotelByName.get();
+        if(hotelupdate.getHotelName()==null ||hotelupdate.getAddress()==null
+                ||hotelupdate.getCity()==null ||hotelupdate.getCountry()==null ){
+            message.setState("Error");
+            message.setMessage("Pleas Insert all information");
+            hotel.setMessage(message);
+            return  hotelupdate;
+        }
+        if(hotelByName.isPresent()){
 
+
+        message.setState("success");
+        message.setMessage("hotel has ben created ");
+            hotelupdate.setMessage(message);
+            hotelupdate.setHotelName(hotel.getHotelName());
+            hotelupdate.setAddress(hotel.getAddress());
+            hotelupdate.setCity(hotel.getCity());
+            hotelupdate.setAddress(hotel.getCountry());
+            hotelupdate.setStatus(Status.DEACTIVATE);
+            hotelupdate.setManger(getMangerById(1L).get());
+
+         return hotelupdate;
+        }
+        return hotelupdate;
+    }
     public Room addRoomToHotel(Room room){
 
         Message message = new Message();
@@ -125,4 +154,51 @@ public class ManagerService {
        Room room1= roomRepository.save(room);
         return room1;
     }
+
+
+    public Integer deleteManagerById(Long id){
+        boolean exists =managerRepository.existsById(id);
+        if(!exists){
+            return  -1;
+        }else {
+
+            try {
+                managerRepository.deleteById(id);
+                return 1;
+            } catch (Exception e){
+                return 0;
+            }
+        }
+    }
+
+
+    @Transactional
+    public Manager updateManager(Manager manager){
+        Message message =new Message();
+        Optional<Manager> managerByEmail=getMangerByEmail(manager.getEmail());
+        Manager managerupdate=managerByEmail.get();
+        if(managerupdate.getEmail()==null || managerupdate.getFirstName()==null
+                || managerupdate.getLastName()==null ||managerupdate.getPassword()==null
+        ){
+            message.setState("Error");
+            message.setMessage("Pleas Insert all information");
+            managerupdate.setMessage(message);
+            return  managerupdate;
+        }
+        if(managerByEmail.isPresent()){
+            message.setState("Success");
+            message.setMessage("Manager has ben updated");
+            managerupdate.setMessage(message);
+            managerupdate.setFirstName(manager.getFirstName());
+            managerupdate.setLastName(manager.getLastName());
+            managerupdate.setEmail(manager.getEmail());
+            managerupdate.setPassword(manager.getPassword());
+            managerupdate.setRole(roleRepository.getRoleByRoleName("Manager"));
+            managerupdate.setStatus(Status.ACTIVE);
+            return managerupdate;
+        }
+
+        return  managerupdate;
+    }
+
 }

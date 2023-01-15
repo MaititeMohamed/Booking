@@ -6,6 +6,7 @@ import com.example.Booking.repository.RoleRepository;
 import com.example.Booking.repository.RoomRepository;
 
 import com.example.Booking.util.Message;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -79,4 +80,47 @@ public class ClientService {
         return reservation;
     }
 
+    public Integer deleteClientById(Long id){
+        boolean exists =clientRepository.existsById(id);
+        if(!exists){
+            return  -1;
+        }else {
+
+            try {
+           clientRepository.deleteById(id);
+                return 1;
+            } catch (Exception e){
+                return 0;
+            }
+        }
+    }
+
+    @Transactional
+    public Client updateClient(Client client){
+        Message message =new Message();
+        Optional<Client> clientByEmail=getClientByEmail(client.getEmail());
+        Client clientupdate=clientByEmail.get();
+        if(clientupdate.getEmail()==null || clientupdate.getFirstName()==null
+                || clientupdate.getLastName()==null ||clientupdate.getPassword()==null
+        ){
+            message.setState("Error");
+            message.setMessage("Pleas Insert all information");
+            clientupdate.setMessage(message);
+            return  clientupdate;
+        }
+        if(clientByEmail.isPresent()){
+            message.setState("Success");
+            message.setMessage("Client has ben updated");
+            clientupdate.setMessage(message);
+            clientupdate.setFirstName(client.getFirstName());
+            clientupdate.setLastName(client.getLastName());
+            clientupdate.setEmail(client.getEmail());
+            clientupdate.setPassword(client.getPassword());
+            clientupdate.setRole(roleRepository.getRoleByRoleName("Client"));
+            clientupdate.setStatus(Status.ACTIVE);
+            return clientupdate;
+        }
+
+       return  clientupdate;
+    }
 }

@@ -1,4 +1,4 @@
-package com.example.Booking.repository.controller;
+package com.example.Booking.controller;
 
 
 import com.example.Booking.entity.Reservation;
@@ -13,6 +13,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping(path = "/Booking/Client")
+@CrossOrigin("http://localhost:4200")
 public class ClientController {
 
     @Autowired
