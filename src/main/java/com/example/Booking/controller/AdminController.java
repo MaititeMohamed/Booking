@@ -110,10 +110,27 @@ public class AdminController {
 
     /*Room*/
      @GetMapping("/getRoomsByHotelId/{hotel}")
-
      public  List<Room> getRoomsByHotel(@PathVariable Hotel hotel){
 
          return  roomService.getRoomsByHotel(hotel);
      }
+
+     @GetMapping(path = "/getAllRoms")
+     public List<Room> getAllRoom(){
+         return  roomService.getAllRoms();
+     }
+    @DeleteMapping("/deleteRoomById/{id}")
+    public Integer deleteRoomById(@PathVariable("id") Long id){
+        return managerService.deleteRoomById(id);
+    }
+
+    @PutMapping("/updateRoom")
+    public  Room updateRoom(@RequestBody Room  room){
+        return managerService.updateRoomToHotel(room);
+    }
+    @GetMapping(path = "/getRoomById/{id}")
+    public Optional<Room> getRoomById(@PathVariable("id") long id){
+         return  roomService.getRoomById(id);
+    }
 
 }

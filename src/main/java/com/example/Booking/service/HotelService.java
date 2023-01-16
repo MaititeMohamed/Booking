@@ -28,6 +28,11 @@ public class HotelService {
             hotelOptional.get().setStatus(Status.ACTIVE);
             hotelRepository.save(hotelOptional.get());
             return hotelOptional.get();
+        }else if(hotelOptional.isPresent() && hotelOptional.get().getStatus() == Status.ACTIVE) {
+
+            hotelOptional.get().setStatus(Status.DEACTIVATE);
+            hotelRepository.save(hotelOptional.get());
+            return hotelOptional.get();
         }else {
             return  null;
         }

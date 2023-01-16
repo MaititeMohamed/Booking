@@ -155,7 +155,50 @@ public class ManagerService {
         return room1;
     }
 
+    @Transactional
+    public Room updateRoomToHotel(Room room){
+        Message message = new Message();
+        Optional<Room> findRoomNumber=findRoomByRoomNumber(room.getRoomNumber());
+        Room RoomUpdate=findRoomNumber.get();
+        if(RoomUpdate.getRoomNumber()==null  || RoomUpdate.getNumberBeds()==null
+                ||RoomUpdate.getPrice() == 0 ||RoomUpdate.getRoomType()==null
+         ||RoomUpdate.getCapacity()==0 || RoomUpdate.getDescription()==null){
+            message.setState("Error");
+            message.setMessage("Pleas Insert all information");
+            room.setMessage(message);
+            return  RoomUpdate;
+        }
+        if(findRoomNumber.isPresent()){
+            message.setState("success");
+            message.setMessage("Room has ben updated ");
+            RoomUpdate.setMessage(message);
+            RoomUpdate.setRoomNumber(room.getRoomNumber());
+            RoomUpdate.setPrice(room.getPrice());
+            RoomUpdate.setCapacity(room.getCapacity());
+            RoomUpdate.setRoomType(room.getRoomType());
+            RoomUpdate.setDescription(room.getDescription());
+            RoomUpdate.setNumberBeds(room.getNumberBeds());
+            RoomUpdate.setRoomStatus(RoomStatus.AVAILABLE);
+            RoomUpdate.setHotel(hotelRepository.findById(1L).get());
+            roomRepository.save(RoomUpdate);
+            return RoomUpdate;
+        }
+        return RoomUpdate;
+    }
+    public Integer deleteRoomById(Long id){
+        boolean exists =roomRepository.existsById(id);
+        if(!exists){
+            return  -1;
+        }else {
 
+            try {
+                roomRepository.deleteById(id);
+                return 1;
+            } catch (Exception e){
+                return 0;
+            }
+        }
+    }
     public Integer deleteManagerById(Long id){
         boolean exists =managerRepository.existsById(id);
         if(!exists){

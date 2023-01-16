@@ -71,8 +71,6 @@ public class ClientService {
 
 
     public Reservation   clientReservation(Reservation reservation){
-
-        reservation.setStartDate(LocalDate.now());
         reservation.setClient(clientRepository.findById(3L).get());
         reservation.setReservationStatus(ReservationStatus.PENDING);
         reservation.setRoom(roomRepository.findById(1L).get());

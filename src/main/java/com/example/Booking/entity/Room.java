@@ -10,35 +10,42 @@ public class Room {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+    private String roomType;
+    private String description;
     private Integer roomNumber;
     private float price;
     private Integer numberBeds;
+    private Integer capacity;
     @ManyToOne
     @JoinColumn(name = "hotel_id")
     private  Hotel hotel;
-   // @Enumerated(EnumType.STRING)
+
     private  RoomStatus roomStatus;
 
-    public Room(Long id, Integer roomNumber,
-                float price, Integer numberBeds,
-                Hotel hotel, RoomStatus roomStatus) {
+
+    public Room(Long id, String roomType, String description, Integer roomNumber, float price, Integer numberBeds, Integer capacity, Hotel hotel, RoomStatus roomStatus, Message message) {
         this.id = id;
+        this.roomType = roomType;
+        this.description = description;
         this.roomNumber = roomNumber;
         this.price = price;
         this.numberBeds = numberBeds;
+        this.capacity = capacity;
         this.hotel = hotel;
         this.roomStatus = roomStatus;
+        this.message = message;
     }
 
-
-    public Room(Integer roomNumber, float price,
-                Integer numberBeds, Hotel hotel,
-                RoomStatus roomStatus) {
+    public Room(String roomType, String description, Integer roomNumber, float price, Integer numberBeds, Integer capacity, Hotel hotel, RoomStatus roomStatus, Message message) {
+        this.roomType = roomType;
+        this.description = description;
         this.roomNumber = roomNumber;
         this.price = price;
         this.numberBeds = numberBeds;
+        this.capacity = capacity;
         this.hotel = hotel;
         this.roomStatus = roomStatus;
+        this.message = message;
     }
 
     public Room() {
@@ -50,6 +57,22 @@ public class Room {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getRoomType() {
+        return roomType;
+    }
+
+    public void setRoomType(String roomType) {
+        this.roomType = roomType;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public Integer getRoomNumber() {
@@ -76,6 +99,14 @@ public class Room {
         this.numberBeds = numberBeds;
     }
 
+    public Integer getCapacity() {
+        return capacity;
+    }
+
+    public void setCapacity(Integer capacity) {
+        this.capacity = capacity;
+    }
+
     public Hotel getHotel() {
         return hotel;
     }
@@ -96,13 +127,18 @@ public class Room {
     public String toString() {
         return "Room{" +
                 "id=" + id +
+                ", roomType='" + roomType + '\'' +
+                ", description='" + description + '\'' +
                 ", roomNumber=" + roomNumber +
                 ", price=" + price +
                 ", numberBeds=" + numberBeds +
+                ", capacity=" + capacity +
                 ", hotel=" + hotel +
                 ", roomStatus=" + roomStatus +
+                ", message=" + message +
                 '}';
     }
+
     @Transient
     private Message message;
 
