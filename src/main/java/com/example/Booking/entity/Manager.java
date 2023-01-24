@@ -1,8 +1,9 @@
 package com.example.Booking.entity;
 import com.example.Booking.util.Message;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
-import jakarta.persistence.Transient;
+;
+
+import javax.persistence.Entity;
+import javax.persistence.Transient;
 
 @Entity
 

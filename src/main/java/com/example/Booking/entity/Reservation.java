@@ -2,8 +2,9 @@ package com.example.Booking.entity;
 
 import com.example.Booking.util.Message;
 import com.fasterxml.jackson.annotation.JsonFormat;
-import jakarta.persistence.*;
 
+
+import javax.persistence.*;
 import java.time.LocalDate;
 
 

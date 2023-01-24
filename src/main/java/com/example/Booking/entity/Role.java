@@ -1,12 +1,14 @@
 package com.example.Booking.entity;
 
 import com.example.Booking.util.Message;
-import jakarta.persistence.*;
+
+
+import javax.persistence.*;
 
 @Entity
 public class Role {
     @Id
-    @GeneratedValue(strategy =GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String roleName;
 

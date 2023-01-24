@@ -5,7 +5,6 @@ import com.example.Booking.entity.Hotel;
 import com.example.Booking.entity.Status;
 import com.example.Booking.repository.HotelRepository;
 import com.example.Booking.util.Message;
-import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

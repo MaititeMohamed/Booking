@@ -7,10 +7,10 @@ import com.example.Booking.repository.ManagerRepository;
 import com.example.Booking.repository.RoleRepository;
 import com.example.Booking.repository.RoomRepository;
 import com.example.Booking.util.Message;
-import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 
@@ -150,7 +150,7 @@ public class ManagerService {
         message.setMessage("hotel has ben created ");
         room.setMessage(message);
         room.setRoomStatus(RoomStatus.AVAILABLE);
-        room.setHotel(hotelRepository.findById(1L).get());
+        room.setHotel(hotelRepository.findById(room.getHotel().getId()).get());
        Room room1= roomRepository.save(room);
         return room1;
     }

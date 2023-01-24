@@ -1,6 +1,8 @@
 package com.example.Booking.entity;
 import com.example.Booking.util.Message;
-import jakarta.persistence.*;
+
+
+import javax.persistence.*;
 
 @Entity
 @Table(name = "users")

@@ -6,10 +6,11 @@ import com.example.Booking.repository.RoleRepository;
 import com.example.Booking.repository.RoomRepository;
 
 import com.example.Booking.util.Message;
-import jakarta.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
@@ -76,6 +77,11 @@ public class ClientService {
         reservation.setRoom(roomRepository.findById(1L).get());
         reservationRepository.save(reservation);
         return reservation;
+//        reservation.setClient(clientRepository.findById(reservation.getClient().getId()).get());
+//        reservation.setReservationStatus(ReservationStatus.PENDING);
+//        reservation.setRoom(roomRepository.findById(reservation.getRoom().getId()).get());
+//        reservationRepository.save(reservation);
+//        return reservation;
     }
 
     public Integer deleteClientById(Long id){
