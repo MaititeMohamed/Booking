@@ -48,6 +48,7 @@ public class Room {
         this.hotel = hotel;
         this.roomStatus = roomStatus;
         this.message = message;
+
     }
 
     public Room() {

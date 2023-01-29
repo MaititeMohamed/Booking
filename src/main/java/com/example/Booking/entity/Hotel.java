@@ -8,6 +8,11 @@ import javax.persistence.*;
 @Entity
 @Table(name = "hotel")
 public class Hotel {
+    // I add User prop  just for DefaultData
+    @Transient
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private  User User ;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
@@ -46,6 +51,16 @@ public class Hotel {
 
     public Hotel() {
     }
+
+    public Hotel(String hotelName, Status status, String address, User user, String country, String city) {
+        this.hotelName = hotelName;
+        this.status = status;
+        this.address = address;
+        this.User = user;
+        this.country = country;
+        this.city = city;
+    }
+
 
     public Long getId() {
         return id;
@@ -118,6 +133,14 @@ public class Hotel {
     }
     @Transient
     private Message message;
+
+    public com.example.Booking.entity.User getUser() {
+        return User;
+    }
+
+    public void setUser(com.example.Booking.entity.User User) {
+        this.User = User;
+    }
 
     public Message getMessage ( ) {
         return message;

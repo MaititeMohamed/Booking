@@ -15,9 +15,9 @@
 version: '3'
 services:
   myapp:
-    image: booking
+    image: bookingbackend
     ports:
-      - "8080:8080"
+      - "8081:8081"
     depends_on:
       - db
   db:
