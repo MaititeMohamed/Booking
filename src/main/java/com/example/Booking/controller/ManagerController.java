@@ -29,7 +29,6 @@ public class ManagerController {
     @PostMapping("/addHotel")
     public Hotel addHotel(@RequestBody Hotel hotel ){return  managerService.addHotel(hotel);}
 
-
     @PostMapping("/addRoom")
     public Room addRomToHotel(@RequestBody Room room){
 

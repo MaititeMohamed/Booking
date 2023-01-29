@@ -150,7 +150,7 @@ public class ManagerService {
         message.setMessage("hotel has ben created ");
         room.setMessage(message);
         room.setRoomStatus(RoomStatus.AVAILABLE);
-        room.setHotel(hotelRepository.findById(room.getHotel().getId()).get());
+        room.setHotel(hotelRepository.findById(1L).get());
        Room room1= roomRepository.save(room);
         return room1;
     }
