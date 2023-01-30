@@ -153,6 +153,9 @@ public class ManagerService {
         room.setHotel(hotelRepository.findById(1L).get());
        Room room1= roomRepository.save(room);
         return room1;
+
+
+
     }
 
     @Transactional
